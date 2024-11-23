@@ -23,16 +23,15 @@ function calculateAge(event) {
     event.preventDefault(); // Empêche la soumission du formulaire
 
     const birthDateInput = document.getElementById("birthDate").value;
-    const currentDateInput = document.getElementById("currentDate").value;
 
-    // Vérification que les champs sont remplis
-    if (!birthDateInput || !currentDateInput) {
-        alert("Veuillez remplir les deux champs.");
+    // Vérification que le champ est rempli
+    if (!birthDateInput) {
+        alert("Veuillez entrer votre date de naissance.");
         return;
     }
 
     const birthDate = new Date(birthDateInput);
-    const currentDate = new Date(currentDateInput);
+    const currentDate = new Date(); // Récupère la date actuelle automatiquement
 
     // Vérification de la cohérence des dates
     if (birthDate > currentDate) {
