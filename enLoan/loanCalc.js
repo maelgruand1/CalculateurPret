@@ -1,4 +1,4 @@
-// Fonction pour calculer l'âge détaillé (en années, mois, jours)
+// Function to calculate detailed age (in years, months, days)
 function calculateDetailedAge(date1, date2) {
     let years = date2.getFullYear() - date1.getFullYear();
     let months = date2.getMonth() - date1.getMonth();
@@ -18,75 +18,68 @@ function calculateDetailedAge(date1, date2) {
     return { years, months, days };
 }
 
-// Fonction pour calculer la différence en mois entre deux dates
+// Function to calculate the number of months between two dates
 function calculateMonthsDifference(date1, date2) {
-    const months = (date2.getFullYear() - date1.getFullYear()) * 12 + date2.getMonth() - date1.getMonth();
-    return months;
+    return (date2.getFullYear() - date1.getFullYear()) * 12 + date2.getMonth() - date1.getMonth();
 }
 
-// Fonction pour calculer la date de fin du prêt à partir du nombre d'échéances (mois)
+// Function to calculate the loan end date based on the number of installments (months)
 function calculateLoanEndDate(loanStartDate, numberOfMonths) {
     const loanEndDate = new Date(loanStartDate);
-    loanEndDate.setMonth(loanEndDate.getMonth() + numberOfMonths); // Ajouter les mois des échéances
+    loanEndDate.setMonth(loanEndDate.getMonth() + numberOfMonths);
     return loanEndDate;
 }
 
-// Fonction pour calculer l'âge
+// Function to handle age calculation
 function calculateAge(event) {
-    event.preventDefault(); // Empêche la soumission du formulaire et le rechargement de la page
+    event.preventDefault(); // Prevent page reload on form submission
 
     const birthDate = new Date(document.getElementById('dateNaiss').value);
     const loanStartDate = new Date(document.getElementById('loanStartDate').value);
-    const numberOfMonths = parseInt(document.getElementById('numberOfMonths').value); // Nombre d'échéances
+    const numberOfMonths = parseInt(document.getElementById('numberOfMonths').value, 10); // Parse installments
+
     const today = new Date();
 
-    // Vérifier si la date de naissance est dans le futur par rapport à aujourd'hui
+    // Validation checks
     if (birthDate > today) {
-        alert("La date d'aujourd'hui ne peut pas être antérieure à votre date de naissance.");
+        alert("Birthdate cannot be in the future.");
         return;
     }
 
-    // Vérifier si le nombre d'échéances est valide
     if (isNaN(numberOfMonths) || numberOfMonths <= 0) {
-        alert("Veuillez entrer un nombre valide d'échéances.");
+        alert("Please enter a valid number of installments.");
         return;
     }
-    
 
-    // Calcul de la date de fin du prêt à partir de la date de début et du nombre d'échéances
+    // Calculate loan end date and ages
     const loanEndDate = calculateLoanEndDate(loanStartDate, numberOfMonths);
-
-    // Calcul de l'âge actuel
     const currentAge = calculateDetailedAge(birthDate, today);
-
-    // Calcul de l'âge à la fin du prêt
     const loanEndAge = calculateDetailedAge(birthDate, loanEndDate);
 
-    // Affichage du résultat
-    const resultDisplay = document.getElementById('result');
-        resultDisplay.classList.remove('hidden'); // Affiche le div du résultat
-        resultDisplay.textContent = `Vous avez ${currentAge.years} ans, ${currentAge.months} mois et ${currentAge.days} jours aujourd'hui.\n
-                               À la fin du prêt, vous aurez ${loanEndAge.years} ans, ${loanEndAge.months} mois et ${loanEndAge.days} jours.\n
-                               Le prêt dure ${numberOfMonths} mois.`;
-    const mort = loanEndAge < 100;
-    if(numberOfMonths >= 1000){
-        loanEndAge > 100
-        var tMort = true;
-        alert("Pret impossible : Mort");
+    // Check if the loan duration is too long (age exceeds 100 years)
+    if (loanEndAge.years >= 100) {
+        alert("Loan not possible: Age at the end of the loan exceeds 100 years.");
         const resultDisplay = document.getElementById('result');
-        resultDisplay.classList.add('hidden'); // Affiche le div du résultat
+        resultDisplay.classList.add('hidden');
+        resultDisplay.textContent = ''; // Clear the result display
+        return;
     }
-    
+
+    // Display the results
+    const resultDisplay = document.getElementById('result');
+    resultDisplay.classList.remove('hidden');
+    resultDisplay.textContent = `You are ${currentAge.years} years, ${currentAge.months} months, and ${currentAge.days} days old today.\n
+At the end of the loan (${numberOfMonths} months), you will be ${loanEndAge.years} years, ${loanEndAge.months} months, and ${loanEndAge.days} days old.`;
 }
 
-// Fonction pour réinitialiser le formulaire et cacher le résultat
+// Function to reset the form and hide results
 function resetForm() {
     document.getElementById('ageForm').reset();
     const resultDisplay = document.getElementById('result');
-    resultDisplay.classList.add('hidden'); // Masquer le résultat
-    resultDisplay.textContent = ''; // Vider le texte du résultat
+    resultDisplay.classList.add('hidden');
+    resultDisplay.textContent = ''; // Clear the result content
 }
 
-// Événements pour le formulaire et le bouton reset
+// Event listeners for form submission and reset button
 document.getElementById('ageForm').addEventListener('submit', calculateAge);
 document.getElementById('resetBtn').addEventListener('click', resetForm);
