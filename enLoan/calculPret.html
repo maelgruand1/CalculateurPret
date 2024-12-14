@@ -1,45 +1,45 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculateur de Prêt Bancaire</title>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Loan Calculator</title>
     <script src="loanCalc.js" defer></script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="LoanCalc.png">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="LoanCalc.png" />
+  </head>
+  <body>
     <header>
-        <h1 class="title">Calcul du Prêt Bancaire</h1>
-        <a href="index.html"><button class="btn">Acceuil</button></a>
+      <h1 class="title">Bank Loan Calculation</h1>
+      <a href="index.html"><button class="btn">Home</button></a>
     </header>
-    <!-- Section pour les inputs -->
+    <!-- Section for inputs -->
     <div class="inputs">
-        <form id="ageForm">
-            <label for="dateNaiss">Date de naissance</label>
-            <br>
-            <input type="date" id="dateNaiss" required>
-            <br><br>
+      <form id="ageForm">
+        <label for="dateNaiss">Date of Birth</label>
+        <br />
+        <input type="date" id="dateNaiss" required />
+        <br /><br />
 
-            <label for="loanStartDate">Date de début du prêt</label>
-            <br>
-            <input type="date" id="loanStartDate" required>
-            <br><br>
+        <label for="loanStartDate">Loan Start Date</label>
+        <br />
+        <input type="date" id="loanStartDate" required />
+        <br /><br />
 
-            <label for="numberOfMonths">Nombre d'échéances (en mois)</label>
-            <br>
-            <input type="number" id="numberOfMonths" min="1" required>
-            <br><br>
+        <label for="numberOfMonths">Number of Installments (in months)</label>
+        <br />
+        <input type="number" id="numberOfMonths" min="1" required />
+        <br /><br />
 
-            <button type="submit">Calculer l'âge à la fin du prêt</button>
-            <button type="reset" id="resetBtn">Clear</button>
-        </form>
-        <br><br>
+        <button type="submit">Calculate Age at Loan End</button>
+        <button type="reset" id="resetBtn">Clear</button>
+      </form>
+      <br /><br />
 
-        <div id="result" class="hidden">
-            <!-- Le résultat s'affiche ici -->
-        </div>
+      <div id="result" class="hidden">
+        <!-- The result will be displayed here -->
+      </div>
     </div>
-</body>
+  </body>
 </html>
