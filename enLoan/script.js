@@ -1,4 +1,4 @@
-// Fonction pour calculer l'âge détaillé (en années, mois, jours)
+// Function to calculate detailed age (in years, months, days)
 function calculateDetailedAge(date1, date2) {
     let years = date2.getFullYear() - date1.getFullYear();
     let months = date2.getMonth() - date1.getMonth();
@@ -18,44 +18,44 @@ function calculateDetailedAge(date1, date2) {
     return { years, months, days };
 }
 
-// Fonction pour gérer l'événement de soumission du formulaire
+// Function to handle the form submission event
 function calculateAge(event) {
-    event.preventDefault(); // Empêche la soumission du formulaire
+    event.preventDefault(); // Prevents form submission
 
     const birthDateInput = document.getElementById("birthDate").value;
 
-    // Vérification que le champ est rempli
+    // Check that the field is filled
     if (!birthDateInput) {
-        alert("Veuillez entrer votre date de naissance.");
+        alert("Please enter your date of birth.");
         return;
     }
 
     const birthDate = new Date(birthDateInput);
-    const currentDate = new Date(); // Récupère la date actuelle automatiquement
+    const currentDate = new Date(); // Automatically retrieves the current date
 
-    // Vérification de la cohérence des dates
+    // Check the consistency of dates
     if (birthDate > currentDate) {
-        alert("La date de naissance ne peut pas être après la date actuelle.");
+        alert("The date of birth cannot be in the future.");
         return;
     }
 
-    // Calcul de l'âge détaillé
+    // Calculate the detailed age
     const age = calculateDetailedAge(birthDate, currentDate);
 
-    // Affichage du résultat
+    // Display the result
     const resultDiv = document.getElementById("result");
     resultDiv.classList.remove("hidden");
-    resultDiv.textContent = `Vous avez ${age.years} ans, ${age.months} mois et ${age.days} jours.`;
+    resultDiv.textContent = `You are ${age.years} years, ${age.months} months, and ${age.days} days old.`;
 }
 
-// Fonction pour réinitialiser le formulaire
+// Function to reset the form
 function resetForm() {
     document.getElementById("ageForm").reset();
     const resultDiv = document.getElementById("result");
     resultDiv.classList.add("hidden");
-    resultDiv.textContent = ""; // Efface le texte du résultat
+    resultDiv.textContent = ""; // Clears the result text
 }
 
-// Écouteurs d'événements
+// Event listeners
 document.getElementById("ageForm").addEventListener("submit", calculateAge);
 document.getElementById("resetBtn").addEventListener("click", resetForm);
